@@ -1,0 +1,38 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #3CB371;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 20vh 70vh;
+  grid-template-areas: "header header"
+                      "main aside"
+}
+
+header {
+  /* background: yellow; */
+  grid-area: header;
+  margin: 48px 0 0;
+}
+
+.container header img {
+  position: center;
+  width: 60px;
+  height: 60px;
+}
+
+main {
+  /* background: blue; */
+  grid-area: main;
+  justify-content: center;
+}
+
+aside {
+  /* background: green; */
+  grid-area: aside;
+}
+
