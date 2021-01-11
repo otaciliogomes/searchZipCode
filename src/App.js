@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import worldwide from './img/worldwide.svg';
+import search from './img/big-search-len.svg';
 
 class App extends Component {
 
@@ -13,26 +14,34 @@ class App extends Component {
 searchZipCode = async (zipCode) => {
   const { data } = await axios.get(`https://viacep.com.br/ws/${zipCode}/json/`);
   const cep = `End: ${data.logradouro}, ${data.localidade} - ${data.uf} CEP:${zipCode}`
-  this.setState({ agoraVai : '' })
   this.setState({ agoraVai : cep })
 }
 
 
 writeText = (searchByZipCode) => {
     let textArray = searchByZipCode.split('');
-    let painting = document.querySelector('p');
+    let painting = document.querySelector('h1');
     textArray.forEach((letter, index) => {
         setTimeout(() => {
           painting.innerHTML += letter;
         }, 75 * index)
+
+        let apagarTexto = document.querySelector('input');
+        apagarTexto.value = ''
+
     });
 }
 
 getSearch = () => {
-  const { inputCep } = this.state;
-  this.searchZipCode(inputCep)
-  this.essporra()
-
+  const verificarInput = document.querySelector('input')
+  let texth1 = document.querySelector('h1')
+  if (verificarInput.value == '' || verificarInput.value == null) {
+    texth1.innerHTML = ''
+  } else {
+    const { inputCep } = this.state;
+    this.searchZipCode(inputCep)
+    this.essporra()
+  }
 }
 
 essporra = () => {
@@ -50,15 +59,15 @@ render(){
   return (
     <div className="container">
         <header>
-          <img src={worldwide} alt="Mundo"/>
         </header>
+        <h2>CEP</h2>
         <main>
-            <label htmlFor="cep">CEP</label>
-            <input type="text" className="cep" maxLength="8" onChange={this.vaiDarCerto} class="form-control cep-mask" placeholder="Ex.: 00000-000"/>
-            <button type="button" onClick={this.getSearch} >Pesquisar</button>
+            <input type="text" className="cep" maxLength="8" onChange={this.vaiDarCerto} placeholder="Ex.: 00000-000"/>
+            <p>|</p>
+            <img src={search} onClick={this.getSearch} alt="Pesquisar"/>
         </main>
         <aside>
-          <p></p>
+          <h1></h1>
         </aside>
     </div>
   );
