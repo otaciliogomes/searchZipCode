@@ -2,42 +2,82 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: #3CB371;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 30vh 20vh 50vh ;
-  grid-template-areas: "header aside"
-                      "h2 aside"
-                      "main aside";
-}
-
-header {
-  grid-area: header;
-  justify-items: start;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  background-image: url('https://images.pexels.com/photos/1098515/pexels-photo-1098515.jpeg');
+  background-size: 100%;
 }
 
-header img {
-  width: 250px;
-  height: 80px;
+.card {
+  background: #EEEEEE;
+  position: relative;
+  width: 700px;
+  height: 300px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.05),
+              inset -5px -5px 5px rgba(255, 255, 255, 0.05),
+              5px 5px 5px rgba(0, 0, 0, 0.05),
+              -5px -5px 5px rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  margin: 30px;
+}
+
+.card div {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: #FFF;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: 1;
+  grid-template-rows: 10vh 10vh 40vh;
+  grid-template-areas: "h2"
+                        "p"
+                        "main"; 
+  justify-items: center ;
+  transition: 0.5s;
+}
+
+.card:hover div {
+  transform: translateY(-50px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4)
 }
 
 h2 {
   grid-area: h2;
-  color: white;
-  justify-self: center;
-  align-self: end;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.card:hover h2 {
+  font-size: 1.8rem;
+  z-index: 1;
+  transition: 0.5s;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.card:hover .text {
+  grid-area: p;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #777;
+  z-index: 1;
+  transition: 0.5s;
 }
 
 main {
   grid-area: main;
-  justify-self: center;
-  align-self: start;
 
   background: white;
+  box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   width: 420px;
   height: 46px;
@@ -54,7 +94,6 @@ main input {
   margin: 0;
   border: 0 none;
   outline: 0;
-  box-shadow: 0 0 0 0;
   width: 100%;
   height: 30px;
   justify-self: center;
@@ -89,7 +128,12 @@ main img {
 
   background-image: none;
   color: gray;
-  
+  transition: .5s;
+  cursor: pointer;
+}
+
+main img:hover {
+  transform: scale(1.12);
 }
 
 
@@ -97,6 +141,53 @@ aside {
   grid-area: aside;
   justify-self: center;
   align-self: center;
-
 }
 
+h1 {
+  color: #111;
+}
+
+
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  padding: 50px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+  background: #FFF;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.6s;
+  border-radius: 10px;
+}
+
+a {
+  position: relative;
+  padding: 5px 20px;
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #FFF;
+  background: rgb(41, 39, 39);
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+a:hover {
+  transform: scale(1.08);
+  background: #111;
+}
+
+.popup.active {
+  top: 50%;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.6s;
+}
+
+.container.active {
+  filter: blur(5px);
+}
